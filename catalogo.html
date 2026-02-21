@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Completo | Digital Footprint</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Rajdhani:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dark-theme">
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <a href="index.html">
+                    <span class="logo-text">DIGITAL<span>FOOTPRINT</span></span>
+                </a>
+            </div>
+            <ul class="nav-list">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html" class="active">Catálogo</a></li>
+                <li><a href="metodos.html">Métodos</a></li>
+                <li><a href="comprar.html">Cómo Comprar</a></li>
+                <li><a href="discord.html">Discord</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="page-content">
+        <section class="page-header container">
+            <h1 class="text-gradient">Nuestro Catálogo</h1>
+            <p>Explora todo nuestro universo de productos digitales en un solo lugar.</p>
+
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" class="search-input"
+                    placeholder="Busca pavos, suscripciones, cuentas...">
+            </div>
+
+            <div class="platform-availability" id="platformNotice">
+                <span class="availability-text">Compatibilidad Total en Fortnite:</span>
+                <div class="platform-icons-row">
+                    <i class="fab fa-xbox" title="Xbox One / Series X|S"></i>
+                    <i class="fab fa-playstation" title="PlayStation 4/5"></i>
+                    <i class="fas fa-desktop" title="PC / Windows"></i>
+                    <i class="fas fa-gamepad" title="Nintendo Switch"></i>
+                </div>
+            </div>
+        </section>
+
+        <section class="container section-padding">
+            <div class="filter-system">
+                <div class="main-filters" id="mainFilters">
+                    <button class="filter-btn active" data-main="all">Explorar Todo</button>
+                    <button class="filter-btn" data-main="fortnite">Fortnite</button>
+                    <button class="filter-btn" data-main="consolas">Consolas</button>
+                    <button class="filter-btn" data-main="streaming">Streaming</button>
+                    <button class="filter-btn" data-main="extras">Otros</button>
+                </div>
+
+                <div class="sub-filters" id="subFilters" style="display: none;">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+
+            <div class="products-grid" id="fullCatalog">
+                <!-- Products will be dynamically rendered here from products.js -->
+                <div style="text-align: center; grid-column: 1/-1; padding: 5rem;">
+                    <i class="fas fa-circle-notch fa-spin" style="font-size: 3rem; color: var(--primary);"></i>
+                    <p>Iniciando catálogo dinámico...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Digital Footprint. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Discord Floating Button -->
+    <a href="https://discord.gg/Aq3TjM4tJT" class="discord-float" target="_blank">
+        <i class="fab fa-discord"></i>
+    </a>
+
+    <script src="products.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
