@@ -52,21 +52,20 @@ const products = [
     },
     {
         id: 30,
-        name: "2,800 PAVOS (Cuenta Principal)",
-        price: 305.00,
+        name: "PAVOS (Cuenta Principal)",
+        price: 134.00,
         category: "fortnite-principal",
-        icon: "fab fa-xbox, fas fa-desktop, fas fa-gamepad",
-        badge: "Seguro",
-        description: "Recarga de 2,800 Pavos directamente en tu cuenta principal. Proceso 100% seguro."
-    },
-    {
-        id: 31,
-        name: "5,000 PAVOS (Cuenta Principal)",
-        price: 495.00,
-        category: "fortnite-principal",
-        icon: "fab fa-xbox, fas fa-desktop, fas fa-gamepad",
-        badge: "Mejor Valor",
-        description: "Recarga de 5,000 Pavos directamente en tu cuenta principal. Proceso 100% seguro."
+        type: "selectable",
+        icon: "fas fa-desktop, fab fa-playstation, fab fa-xbox, fas fa-mobile-alt",
+        badge: "Garantizado",
+        description: "Recarga de Pavos directamente en tu cuenta principal.\n\n✅ **PLATAFORMAS**: PC, PlayStation, Xbox y Mobile.\n❌ **NO DISPONIBLE**: Nintendo Switch.\n\nProceso 100% seguro y sin riesgos para tu cuenta.",
+        variants: [
+            { name: "1,000 V-Bucks", price: 134.00 },
+            { name: "2,800 V-Bucks", price: 300.00 },
+            { name: "5,000 V-Bucks", price: 435.00 },
+            { name: "13,500 V-Bucks", price: 845.00 },
+            { name: "27,000 V-Bucks", price: 1560.00 }
+        ]
     },
     {
         id: 10,
@@ -74,8 +73,71 @@ const products = [
         price: 130.00,
         category: "lotes-fortnite",
         icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
-        badge: "Económico",
-        description: "Lote de 3 cuentas full acceso. Incluyen Club de Fortnite (+1500 pavos extra por cuenta)."
+        badge: "$43.3 c/u",
+        description: "Lote para revendedores: 3 cuentas de 1,000 pavos cada una.\n\n🎮 **Plataformas**: Xbox, PlayStation, PC y Nintendo."
+    },
+    {
+        id: 11,
+        name: "4,500 PAVOS (3 Cuentas de 1.5K)",
+        price: 204.00,
+        category: "lotes-fortnite",
+        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
+        badge: "$68 c/u",
+        description: "Lote para revendedores: 3 cuentas de 1,500 pavos cada una.\n\n🎮 **Plataformas**: Xbox, PlayStation, PC y Nintendo."
+    },
+    {
+        id: 12,
+        name: "4,800 PAVOS (3 Cuentas de 1.6K)",
+        price: 245.00,
+        category: "lotes-fortnite",
+        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
+        badge: "$81.6 c/u",
+        description: "Lote para revendedores: 3 cuentas de 1,600 pavos cada una.\n\n🎮 **Plataformas**: Xbox, PlayStation, PC y Nintendo."
+    },
+    {
+        id: 13,
+        name: "5,000 PAVOS (5 Cuentas de 1K)",
+        price: 200.00,
+        category: "lotes-fortnite",
+        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
+        badge: "$40 c/u",
+        description: "Lote para revendedores: 5 cuentas de 1,000 pavos cada una.\n\n🎮 **Plataformas**: Xbox, PlayStation, PC y Nintendo."
+    },
+    {
+        id: 14,
+        name: "6,600 PAVOS (3 Cuentas de 2.2K)",
+        price: 335.00,
+        category: "lotes-fortnite",
+        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
+        badge: "$111.6 c/u",
+        description: "Lote para revendedores: 3 cuentas de 2,200 pavos cada una.\n\n🎮 **Plataformas**: Xbox, PlayStation, PC y Nintendo."
+    },
+    {
+        id: 15,
+        name: "10,200 PAVOS (3 Cuentas de 3.4K)",
+        price: 595.00,
+        category: "lotes-fortnite",
+        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
+        badge: "$198.3 c/u",
+        description: "Lote para revendedores: 3 cuentas de 3,400 pavos cada una.\n\n🎮 **Plataformas**: Xbox, PlayStation, PC y Nintendo."
+    },
+    // --- CUENTAS REGALO / FA ---
+    {
+        id: 20,
+        name: "CUENTAS PAVOS (Vía Regalo)",
+        price: 53.00,
+        oldPrice: 80.00,
+        category: "fortnite",
+        type: "selectable",
+        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
+        badge: "OFERTA",
+        description: "Cuentas nuevas con pavos listos para enviar artículos vía regalo a tu cuenta principal.\n\n🎮 **Plataformas**: Xbox, PlayStation, PC y Nintendo.\n✨ **Uso**: Ideales para auto-regalarte skins, pases o gestos.",
+        variants: [
+            { name: "1,000 V-Bucks", price: 53.00 },
+            { name: "1,600 V-Bucks", price: 126.00 },
+            { name: "2,200 V-Bucks", price: 196.00 },
+            { name: "3,400 V-Bucks", price: 296.00 }
+        ]
     },
     /* PERFILES (Lego) */
     {
