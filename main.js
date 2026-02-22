@@ -451,8 +451,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (p.category === 'fortnite-club') auraClass = 'aura-purple';
                 if (p.category === 'streaming' || p.category === 'streaming-premium' || p.category === 'streaming-completa') auraClass = 'aura-streaming';
                 if (p.category === 'ofertas') auraClass = 'aura-cyan';
-                if (p.category.includes('robux')) auraClass = 'aura-gold';
+                if (p.category.includes('robux') || p.category === 'roblox-group') auraClass = 'aura-gold';
                 if (p.category === 'extras') auraClass = 'aura-purple';
+                if (p.category === 'nintendo') auraClass = 'aura-red';
+                if (p.id === 114 || p.id === 115) auraClass = 'aura-epic';
 
                 const platformIcons = p.icon.split(',').map(icon => `<i class="${icon.trim()}" style="font-size: 0.8rem; opacity: 0.6;"></i>`).join('');
 
@@ -460,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="product-card animate-reveal" data-category="${p.category}">
                     ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
                     <div class="product-image ${auraClass}">
-                        <i class="fas fa-coins"></i>
+                        <i class="${p.icon.split(',')[0]}"></i>
                     </div>
                     <div class="product-info">
                         <h3>${p.name}</h3>
@@ -504,6 +506,12 @@ document.addEventListener('DOMContentLoaded', () => {
             'extras': [
                 { name: 'Todo Otros', filter: 'extras' },
                 { name: 'Redes Sociales', filter: 'redes-sociales' }
+            ],
+            'consolas': [
+                { name: 'Todo Consolas', filter: 'consolas-group' },
+                { name: 'Nintendo Switch', filter: 'nintendo' },
+                { name: 'Xbox Series X|S', filter: 'xbox' },
+                { name: 'PlayStation 5', filter: 'playstation' }
             ]
         };
 
@@ -546,10 +554,22 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (filter === 'streaming-group') {
                 const group = products.filter(p => p.category === 'streaming' || p.category === 'streaming-completa' || p.category === 'ofertas');
                 renderCatalogWithData(group, filter);
-            } else if (filter === 'ofertas') {
-                renderCatalog('ofertas');
-            } else if (filter === 'consolas-group' || filter === 'consolas' || filter === 'xbox' || filter === 'playstation' || filter === 'nintendo') {
-                renderConsoleNotice();
+            } else if (filter === 'nintendo') {
+                const group = products.filter(p => p.category === 'nintendo');
+                // Put packs (114, 115) at the top
+                group.sort((a, b) => {
+                    if (a.id === 114 || a.id === 115) return -1;
+                    if (b.id === 114 || b.id === 115) return 1;
+                    return 0;
+                });
+                renderCatalogWithData(group, filter);
+            } else if (filter === 'consolas-group' || filter === 'consolas' || filter === 'xbox' || filter === 'playstation') {
+                const games = products.filter(p => p.category === 'nintendo');
+                if (games.length > 0 && (filter === 'consolas-group' || filter === 'consolas')) {
+                    renderCatalogWithData(games, filter);
+                } else {
+                    renderConsoleNotice();
+                }
             } else if (filter === 'redes-sociales') {
                 const group = products.filter(p => p.id === 90 || p.id === 92);
                 renderCatalogWithData(group, filter);
@@ -567,15 +587,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (p.category === 'fortnite-club') auraClass = 'aura-purple';
                 if (p.category === 'streaming' || p.category === 'streaming-premium' || p.category === 'streaming-completa') auraClass = 'aura-streaming';
                 if (p.category === 'ofertas') auraClass = 'aura-cyan';
-                if (p.category.includes('robux')) auraClass = 'aura-gold';
+                if (p.category.includes('robux') || p.category === 'roblox-group') auraClass = 'aura-gold';
                 if (p.category === 'extras') auraClass = 'aura-purple';
+                if (p.category === 'nintendo') auraClass = 'aura-red';
+                if (p.id === 114 || p.id === 115) auraClass = 'aura-epic';
+
                 const platformIcons = p.icon.split(',').map(icon => `<i class="${icon.trim()}" style="font-size: 0.8rem; opacity: 0.6;"></i>`).join('');
 
                 return `
                 <div class="product-card animate-reveal" data-category="${p.category}">
                     ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
                     <div class="product-image ${auraClass}">
-                        <i class="fas fa-coins"></i>
+                        <i class="${p.icon.split(',')[0]}"></i>
                     </div>
                     <div class="product-info">
                         <h3>${p.name}</h3>

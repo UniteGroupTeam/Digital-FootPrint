@@ -363,6 +363,176 @@ const products = [
         badge: "STAR PRODUCT",
         description: "Almacenamiento masivo y permanente para todos tus archivos.\n\n✅ **500 TERABYTES**: Espacio masivo en cuenta emitida.\n✅ **PERMANENTE**: No vence, un solo pago de por vida.\n✅ **PRIVADO**: Tu información es 100% privada.\n✅ **VINCULABLE**: Se puede vincular con tu cuenta personal.\n\n✨ *Incluye cuenta personalizada con el prefijo que elijas (ej: tunombre@).* ",
         platform: "Cloud"
+    },
+    // --- NINTENDO GAMES (CUENTA NUEVA) ---
+    {
+        id: 101,
+        name: "Super Mario Wonder",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "Juego para Nintendo Switch (Cuenta Secundaria). Disfruta de la última aventura de Mario.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 102,
+        name: "Zelda: Breath of the Wild",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "Una obra maestra de la aventura. Cuenta secundaria.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 103,
+        name: "Mario Kart 8 Deluxe",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "Carreras infinitas con amigos. Cuenta secundaria.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 104,
+        name: "Super Smash Bros Ultimate",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "Todos están aquí. El juego de lucha definitivo.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 105,
+        name: "Pokémon Escarlata",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "Explora la región de Paldea. Cuenta secundaria.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 106,
+        name: "Animal Crossing: New Horizons",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "Crea tu paraíso en una isla desierta. Cuenta secundaria.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 107,
+        name: "Super Mario 3D World + Bowser's Fury",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "Diversión multijugador y una nueva aventura gigante.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 108,
+        name: "Kirby and the Forgotten Land",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "La primera aventura en 3D de Kirby. Absorbente y divertido.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 109,
+        name: "Luigi's Mansion 3",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "Caza de fantasmas en un hotel de lujo. Cuenta secundaria.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 110,
+        name: "Metroid Dread",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "Samus regresa en una aventura de acción y sigilo. Cuenta secundaria.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 111,
+        name: "Hogwarts Legacy",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "Vive tu propia historia en el mundo de Harry Potter. Cuenta secundaria.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 112,
+        name: "Minecraft (Nintendo Switch)",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "El mundo de bloques en tu consola. Cuenta secundaria.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 113,
+        name: "EA Sports FC 25",
+        price: 375.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Promo 2x$560",
+        description: "El fútbol más realista en Switch. Cuenta secundaria.\n\n🔥 **PROMOCIÓN**: 2 juegos por $560 + Regalo o 3 por $800 + Regalo.",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 114,
+        name: "Pack Especial: 2 Juegos Nintendo",
+        price: 560.00,
+        category: "nintendo",
+        icon: "fas fa-boxes",
+        badge: "GANA UN JUEGO",
+        description: "Elige 2 juegos cualesquiera de la lista promocional.\n\n🎁 **Bonus**: ¡Llévate un TERCER juego de regalo sorpresa!",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 115,
+        name: "Pack Premium: 3 Juegos Nintendo",
+        price: 800.00,
+        category: "nintendo",
+        icon: "fas fa-gift",
+        badge: "GANA UN JUEGO",
+        description: "Elige 3 juegos de la lista promocional.\n\n🎁 **REGALO**: ¡Llévate un CUARTO juego de regalo sorpresa!",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 116,
+        name: "Zelda: Tears of the Kingdom",
+        price: 300.00,
+        category: "nintendo",
+        icon: "fas fa-gamepad",
+        badge: "Precio Especial",
+        description: "La épica secuela de Breath of the Wild.\n\n⚠️ *No aplica en promociones de packs.*",
+        platform: "Nintendo Switch"
+    },
+    {
+        id: 117,
+        name: "Mario Kart 8 DLC (Pistas Extras)",
+        price: 450.00,
+        category: "nintendo",
+        icon: "fas fa-plus-circle",
+        description: "Pase de pistas extras para Mario Kart 8 Deluxe.\n\n⚠️ *No aplica en promociones de packs.*",
+        platform: "Nintendo Switch"
     }
 ];
 

@@ -1018,6 +1018,53 @@ ul {
     background: #00d2ff;
 }
 
+.aura-red {
+    color: #ff4757 !important;
+}
+
+.aura-red::after {
+    background: #ff4757;
+}
+
+.aura-epic {
+    color: #00d2ff !important;
+    animation: epic-pulse 4s infinite;
+}
+
+.aura-epic::after {
+    background: linear-gradient(45deg, #00d2ff, #2ecc71, #ffcc00, #ff4757, #e056fd);
+    background-size: 200% 200%;
+    animation: gradient-flow 3s infinite linear;
+    filter: blur(50px);
+    opacity: 0.8;
+}
+
+@keyframes epic-pulse {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.4));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 30px rgba(224, 86, 253, 0.6));
+    }
+}
+
+@keyframes gradient-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 /* Suggested Products Section (for product.html) */
 .related-products {
     margin-top: 5rem;
