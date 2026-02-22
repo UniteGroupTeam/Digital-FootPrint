@@ -979,6 +979,38 @@ ul {
     background: #00d2ff;
 }
 
+.aura-gold {
+    color: #ffcc00 !important;
+}
+
+.aura-gold::after {
+    background: #ffcc00;
+}
+
+.aura-purple {
+    color: #e056fd !important;
+}
+
+.aura-purple::after {
+    background: #e056fd;
+}
+
+.aura-streaming {
+    color: #4cd137 !important;
+}
+
+.aura-streaming::after {
+    background: #4cd137;
+}
+
+.aura-cyan {
+    color: #00d2ff !important;
+}
+
+.aura-cyan::after {
+    background: #00d2ff;
+}
+
 /* Suggested Products Section (for product.html) */
 .related-products {
     margin-top: 5rem;

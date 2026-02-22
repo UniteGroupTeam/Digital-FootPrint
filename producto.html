@@ -125,6 +125,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const productId = parseInt(params.get('id'));
+            const fromFilter = params.get('from') || 'all';
             const product = products.find(p => p.id === productId);
 
             const container = document.getElementById('productDetail');
@@ -133,54 +134,240 @@
                 let auraClass = 'aura-blue';
                 if (product.category === 'lotes-fortnite') auraClass = 'aura-orange';
                 if (product.category === 'fortnite-principal') auraClass = 'aura-green';
+                if (product.category === 'fortnite-club') auraClass = 'aura-purple';
+                if (product.category === 'streaming' || product.category === 'streaming-premium' || product.category === 'streaming-completa') auraClass = 'aura-streaming';
+                if (product.category === 'ofertas') auraClass = 'aura-cyan';
+                if (product.category.includes('robux')) auraClass = 'aura-gold';
 
-                container.innerHTML = `
-                    <div class="product-detail-container">
-                        <div class="product-image-large ${auraClass}" style="display: flex; gap: 1rem; position: relative;">
-                            <i class="fas fa-coins"></i>
-                            <div style="position: absolute; bottom: 1.5rem; display: flex; gap: 0.8rem; font-size: 1.2rem; opacity: 0.6;">
-                                ${product.icon.split(',').map(icon => `<i class="${icon.trim()}"></i>`).join('')}
+                // Usar el primer icono de la lista como icono principal
+                const mainIconClass = product.icon.split(',')[0].trim();
+
+                const backUrl = `catalogo.html?filter=${fromFilter}`;
+
+                if (product.type === 'calculator') {
+                    const unitName = product.unitName || 'Robux';
+                    const hasGuarantee = product.priceWithGuarantee !== undefined;
+
+                    container.innerHTML = `
+                        <div class="product-detail-container">
+                            <div class="product-image-large ${auraClass}" style="display: flex; gap: 1rem; position: relative;">
+                                <i class="${mainIconClass}"></i>
+                                <div style="position: absolute; bottom: 1.5rem; display: flex; gap: 0.8rem; font-size: 1.2rem; opacity: 0.6;">
+                                    ${product.icon.split(',').map(icon => `<i class="${icon.trim()}"></i>`).join('')}
+                                </div>
+                            </div>
+                            <div class="product-info-detail">
+                                ${product.badge ? `<span class="product-badge" style="position: static; display: inline-block; margin-bottom: 1rem;">${product.badge}</span>` : ''}
+                                <h1 class="white-glow">${product.name}</h1>
+                                <p class="product-description">${product.description}</p>
+                                
+                                <div class="robux-calculator" style="background: rgba(255, 255, 255, 0.02); padding: 2rem; border-radius: 20px; border: 1px solid var(--liquid-border); margin: 2rem 0;">
+                                    ${hasGuarantee ? `
+                                        <div style="margin-bottom: 1.5rem;">
+                                            <label style="display: block; margin-bottom: 1rem; color: var(--primary); font-weight: 800; text-transform: uppercase; font-size: 0.8rem;">Servicio:</label>
+                                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                                <div class="guarantee-opt active" data-price="${product.price}" style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 12px; border: 1px solid var(--liquid-border); cursor: pointer; text-align: center;">
+                                                    <div style="font-weight: bold;">Sin Garantía</div>
+                                                    <div style="font-size: 0.8rem; opacity: 0.6;">$${(product.price).toFixed(2)}/k</div>
+                                                </div>
+                                                <div class="guarantee-opt" data-price="${product.priceWithGuarantee}" style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 12px; border: 1px solid var(--liquid-border); cursor: pointer; text-align: center;">
+                                                    <div style="font-weight: bold;">Con Garantía</div>
+                                                    <div style="font-size: 0.8rem; opacity: 0.6;">$${(product.priceWithGuarantee).toFixed(2)}/k</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ` : ''}
+
+                                    <label style="display: block; margin-bottom: 1rem; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Cantidad de ${unitName}:</label>
+                                    <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
+                                        <input type="number" id="robuxAmount" value="1000" min="${product.minAmount || 100}" step="${product.step || 100}" 
+                                            style="flex: 1; background: rgba(0,0,0,0.3); border: 1px solid var(--liquid-border); color: white; padding: 1rem; border-radius: 10px; font-size: 1.5rem; font-weight: bold;">
+                                        <span style="font-size: 1.2rem; color: var(--text-muted);">${unitName}</span>
+                                    </div>
+                                    <div class="product-price-large" id="calculatedPrice">
+                                        $${product.price.toFixed(2)} MXN
+                                    </div>
+                                    <p id="unitCostDesc" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Costo: $${(product.price / 1000).toFixed(3)} por ${unitName}</p>
+                                </div>
+
+                                <div class="hero-btns" style="justify-content: flex-start;">
+                                    <button id="addCalculatedBtn" class="btn btn-primary btn-glow btn-lg">
+                                        <i class="fas fa-shopping-cart"></i> Añadir al Carrito
+                                    </button>
+                                    <a href="${backUrl}" class="btn btn-outline">
+                                        <i class="fas fa-arrow-left"></i> Volver
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="product-info-detail">
-                            ${product.badge ? `<span class="product-badge" style="position: static; display: inline-block; margin-bottom: 1rem;">${product.badge}</span>` : ''}
-                            <h1 class="white-glow">${product.name}</h1>
-                            <div class="product-price-large">
-                                $${product.price.toFixed(2)} MXN
-                                ${product.oldPrice ? `<span class="old-price" style="font-size: 1.5rem;">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                    `;
+
+                    const amountInput = document.getElementById('robuxAmount');
+                    const priceDisplay = document.getElementById('calculatedPrice');
+                    const addBtn = document.getElementById('addCalculatedBtn');
+                    const unitCostDesc = document.getElementById('unitCostDesc');
+                    let currentPricePerK = product.price;
+                    let currentMode = "Sin Garantía";
+
+                    const guaranteeOpts = document.querySelectorAll('.guarantee-opt');
+                    guaranteeOpts.forEach(opt => {
+                        opt.addEventListener('click', () => {
+                            guaranteeOpts.forEach(o => {
+                                o.classList.remove('active');
+                                o.style.borderColor = 'var(--liquid-border)';
+                                o.style.background = 'rgba(255,255,255,0.05)';
+                            });
+                            opt.classList.add('active');
+                            opt.style.borderColor = 'var(--primary)';
+                            opt.style.background = 'rgba(255,255,255,0.1)';
+                            currentPricePerK = parseFloat(opt.dataset.price);
+                            currentMode = opt.querySelector('div:first-child').textContent;
+                            updatePrice();
+                        });
+                    });
+
+                    const updatePrice = () => {
+                        const amount = parseInt(amountInput.value) || 0;
+                        const total = (amount * (currentPricePerK / 1000));
+                        priceDisplay.innerHTML = `$${total.toFixed(2)} MXN`;
+                        unitCostDesc.textContent = `Costo: $${(currentPricePerK / 1000).toFixed(3)} por ${unitName}`;
+                        return { amount, total };
+                    };
+
+                    amountInput.addEventListener('input', updatePrice);
+
+                    addBtn.addEventListener('click', () => {
+                        const { amount, total } = updatePrice();
+                        if (amount >= (product.minAmount || 100)) {
+                            addToCartCalculated(product.id, amount, total, unitName, currentMode);
+                        } else {
+                            alert(`El monto mínimo es ${product.minAmount || 100} ${unitName}`);
+                        }
+                    });
+
+                } else if (product.type === 'selectable') {
+                    container.innerHTML = `
+                        <div class="product-detail-container">
+                            <div class="product-image-large ${auraClass}" style="display: flex; gap: 1rem; position: relative;">
+                                <i class="${mainIconClass}"></i>
+                                <div style="position: absolute; bottom: 1.5rem; display: flex; gap: 0.8rem; font-size: 1.2rem; opacity: 0.6;">
+                                    ${product.icon.split(',').map(icon => `<i class="${icon.trim()}"></i>`).join('')}
+                                </div>
                             </div>
-                            <p class="product-description">${product.description}</p>
-                            <div class="hero-btns" style="justify-content: flex-start;">
-                                <button onclick="addToCart(${product.id})" class="btn btn-primary btn-glow btn-lg">
-                                    <i class="fas fa-shopping-cart"></i> Añadir al Carrito
-                                </button>
-                                <a href="catalogo.html" class="btn btn-outline">
-                                    <i class="fas fa-arrow-left"></i> Volver
-                                </a>
+                            <div class="product-info-detail">
+                                ${product.badge ? `<span class="product-badge" style="position: static; display: inline-block; margin-bottom: 1rem;">${product.badge}</span>` : ''}
+                                <h1 class="white-glow">${product.name}</h1>
+                                <p class="product-description">${product.description}</p>
+                                
+                                <div class="selection-box" style="margin: 2rem 0;">
+                                    <label style="display: block; margin-bottom: 1rem; color: var(--primary); font-weight: 800; text-transform: uppercase;">Selecciona Opción:</label>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem;" id="variantOptions">
+                                        ${product.variants.map((v, index) => `
+                                            <div class="variant-card ${index === 0 ? 'active' : ''}" data-price="${v.price}" data-name="${v.name}" 
+                                                style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 15px; border: 1px solid var(--liquid-border); cursor: pointer; text-align: center; transition: 0.3s;">
+                                                <div style="font-weight: bold; margin-bottom: 0.5rem;">${v.name}</div>
+                                                <div style="color: var(--primary); font-size: 0.9rem;">$${v.price} MXN</div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <div class="product-price-large" id="selectedPrice" style="margin-top: 2rem;">
+                                        $${product.variants[0].price.toFixed(2)} MXN
+                                    </div>
+                                </div>
+
+                                <div class="hero-btns" style="justify-content: flex-start;">
+                                    <button id="addVariantBtn" class="btn btn-primary btn-glow btn-lg">
+                                        <i class="fas fa-shopping-cart"></i> Añadir al Carrito
+                                    </button>
+                                    <a href="${backUrl}" class="btn btn-outline">
+                                        <i class="fas fa-arrow-left"></i> Volver
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
+                    `;
+
+                    const variantCards = document.querySelectorAll('.variant-card');
+                    const priceDisplay = document.getElementById('selectedPrice');
+                    const addBtn = document.getElementById('addVariantBtn');
+                    let currentVariant = product.variants[0];
+
+                    variantCards.forEach(card => {
+                        card.addEventListener('click', () => {
+                            variantCards.forEach(c => {
+                                c.classList.remove('active');
+                                c.style.borderColor = 'var(--liquid-border)';
+                                c.style.background = 'rgba(255,255,255,0.05)';
+                            });
+                            card.classList.add('active');
+                            card.style.borderColor = 'var(--primary)';
+                            card.style.background = 'rgba(224, 86, 253, 0.1)';
+
+                            const price = parseFloat(card.dataset.price);
+                            const name = card.dataset.name;
+                            priceDisplay.innerHTML = `$${price.toFixed(2)} MXN`;
+                            currentVariant = { name, price };
+                        });
+                    });
+
+                    addBtn.addEventListener('click', () => {
+                        addToCartCalculated(product.id, currentVariant.name, currentVariant.price);
+                    });
+                } else {
+                    container.innerHTML = `
+                        <div class="product-detail-container">
+                            <div class="product-image-large ${auraClass}" style="display: flex; gap: 1rem; position: relative;">
+                                <i class="${mainIconClass}"></i>
+                                <div style="position: absolute; bottom: 1.5rem; display: flex; gap: 0.8rem; font-size: 1.2rem; opacity: 0.6;">
+                                    ${product.icon.split(',').map(icon => `<i class="${icon.trim()}"></i>`).join('')}
+                                </div>
+                            </div>
+                            <div class="product-info-detail">
+                                ${product.badge ? `<span class="product-badge" style="position: static; display: inline-block; margin-bottom: 1rem;">${product.badge}</span>` : ''}
+                                <h1 class="white-glow">${product.name}</h1>
+                                <div class="product-price-large">
+                                    $${product.price.toFixed(2)} MXN
+                                    ${product.oldPrice ? `<span class="old-price" style="font-size: 1.5rem;">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                                </div>
+                                <p class="product-description">${product.description}</p>
+                                <div class="hero-btns" style="justify-content: flex-start;">
+                                    <button onclick="addToCart(${product.id})" class="btn btn-primary btn-glow btn-lg">
+                                        <i class="fas fa-shopping-cart"></i> Añadir al Carrito
+                                    </button>
+                                    <a href="${backUrl}" class="btn btn-outline">
+                                        <i class="fas fa-arrow-left"></i> Volver
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
 
                 // Render Suggestions
                 const relatedGrid = document.getElementById('relatedGrid');
                 const suggestions = products
-                    .filter(p => p.id !== product.id && (p.category === product.category || p.category.includes('fortnite')))
-                    .sort(() => 0.5 - Math.random()) // Shuffle
+                    .filter(p => p.id !== product.id && (p.category === product.category || p.category.includes('fortnite') || p.category.includes('robux')))
+                    .sort(() => 0.5 - Math.random())
                     .slice(0, 4);
 
                 relatedGrid.innerHTML = suggestions.map(p => {
                     let sAura = 'aura-blue';
                     if (p.category === 'lotes-fortnite') sAura = 'aura-orange';
                     if (p.category === 'fortnite-principal') sAura = 'aura-green';
+                    if (p.category === 'fortnite-club') sAura = 'aura-purple';
+                    if (p.category.includes('streaming')) sAura = 'aura-streaming';
+                    if (p.category === 'ofertas') sAura = 'aura-cyan';
+                    if (p.category.includes('robux')) sAura = 'aura-gold';
+
+                    const sIcon = p.icon.split(',')[0].trim();
 
                     return `
                     <div class="product-card">
-                        <div class="product-image ${sAura}"><i class="fas fa-coins" style="font-size: 2.5rem;"></i></div>
+                        <div class="product-image ${sAura}"><i class="${sIcon}" style="font-size: 2.5rem;"></i></div>
                         <div class="product-info">
                             <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem;">${p.name}</h4>
                             <p class="price" style="font-size: 1.1rem; margin-bottom: 1rem;">$${p.price.toFixed(2)} MXN</p>
-                            <a href="producto.html?id=${p.id}" class="btn btn-outline btn-full" style="padding: 0.5rem; font-size: 0.8rem;">Ver Detalle</a>
+                            <a href="producto.html?id=${p.id}&from=${fromFilter}" class="btn btn-outline btn-full" style="padding: 0.5rem; font-size: 0.8rem;">Ver Detalle</a>
                         </div>
                     </div>
                 `}).join('');

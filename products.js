@@ -1,12 +1,63 @@
 const products = [
     {
+        id: 50,
+        name: "Club de Fortnite (PC / Play / Nintendo)",
+        price: 68.00,
+        category: "fortnite-club",
+        type: "selectable",
+        icon: "fas fa-desktop, fab fa-playstation, fas fa-gamepad",
+        badge: "Más Barato",
+        description: "Obtén los beneficios del Club de Fortnite en tu cuenta de PC, PlayStation o Nintendo. Sin necesidad de cuenta de Xbox vinculada. Incluye el Pase de Batalla actual, 1,000 pavos cada mes y skins exclusivas.",
+        variants: [
+            { name: "1 Mes", price: 68.00 },
+            { name: "4 Meses", price: 180.00 },
+            { name: "12 Meses", price: 356.00 }
+        ]
+    },
+    {
+        id: 51,
+        name: "Club de Fortnite (Solo Xbox)",
+        price: 105.00,
+        category: "fortnite-club",
+        type: "selectable",
+        icon: "fab fa-xbox",
+        badge: "Directo",
+        description: "Suscripción al Club de Fortnite exclusiva para cuentas vinculadas a Xbox. Proceso rápido y directo. Incluye todos los beneficios mensuales: skins, pavos y pase de batalla.",
+        variants: [
+            { name: "1 Mes", price: 105.00 },
+            { name: "3 Meses", price: 220.00 },
+            { name: "6 Meses", price: 398.00 },
+            { name: "12 Meses", price: 705.00 }
+        ]
+    },
+    {
+        id: 40,
+        name: "ROBUX (Carga por Grupo)",
+        price: 160.00,
+        category: "robux-group",
+        type: "calculator",
+        icon: "fas fa-users, fas fa-desktop, fas fa-mobile-alt",
+        badge: "Más Rápido",
+        description: "Recarga de Robux vía Grupo. Entrega instantánea si ya estás en el grupo (requiere 15 días de permanencia inicial)."
+    },
+    {
+        id: 41,
+        name: "ROBUX (Vía Gamepass)",
+        price: 175.00,
+        category: "robux-gamepass",
+        type: "calculator",
+        icon: "fas fa-ticket-alt, fas fa-desktop, fas fa-mobile-alt",
+        badge: "Sin Grupo",
+        description: "Recarga de Robux vía Gamepass. Debes enviarnos el link de tu Gamepass. Los Robux se reflejan de 5 a 7 días."
+    },
+    {
         id: 30,
         name: "2,800 PAVOS (Cuenta Principal)",
         price: 305.00,
         category: "fortnite-principal",
         icon: "fab fa-xbox, fas fa-desktop, fas fa-gamepad",
         badge: "Seguro",
-        description: "Recarga de 2,800 Pavos directamente en tu cuenta principal. Proceso 100% seguro y sin riesgos. Disponible para Xbox, PC y Nintendo."
+        description: "Recarga de 2,800 Pavos directamente en tu cuenta principal. Proceso 100% seguro."
     },
     {
         id: 31,
@@ -15,60 +66,7 @@ const products = [
         category: "fortnite-principal",
         icon: "fab fa-xbox, fas fa-desktop, fas fa-gamepad",
         badge: "Mejor Valor",
-        description: "Recarga de 5,000 Pavos directamente en tu cuenta principal. Proceso 100% seguro y sin riesgos. Disponible para Xbox, PC y Nintendo."
-    },
-    {
-        id: 32,
-        name: "13,500 PAVOS (Cuenta Principal)",
-        price: 1099.00,
-        category: "fortnite-principal",
-        icon: "fab fa-xbox, fas fa-desktop, fas fa-gamepad",
-        badge: "Más Comprado",
-        description: "Mucha cantidad de Pavos recargados en tu cuenta principal con garantía total."
-    },
-    {
-        id: 33,
-        name: "27,000 PAVOS (Cuenta Principal)",
-        price: 2089.00,
-        category: "fortnite-principal",
-        icon: "fab fa-xbox, fas fa-desktop, fas fa-gamepad",
-        badge: "Pack Pro",
-        description: "Pack masivo de 27,000 Pavos directo a tu cuenta principal. La mejor opción para coleccionistas."
-    },
-    {
-        id: 20,
-        name: "1,000 PAVOS (Cuenta Nueva)",
-        price: 53.00,
-        oldPrice: 80.00,
-        category: "fortnite",
-        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
-        badge: "Oferta",
-        description: "Cuenta nueva con 1,000 Pavos lista para enviar artículos vía regalo. Compatible con todas las plataformas."
-    },
-    {
-        id: 21,
-        name: "1,600 PAVOS (Cuenta Nueva)",
-        price: 126.00,
-        category: "fortnite",
-        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
-        description: "Cuenta nueva con 1,600 Pavos lista para enviar artículos vía regalo. Compatible con todas las plataformas."
-    },
-    {
-        id: 22,
-        name: "2,200 PAVOS (Cuenta Nueva)",
-        price: 196.00,
-        category: "fortnite",
-        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
-        description: "Cuenta nueva con 2,200 Pavos lista para enviar artículos vía regalo. Compatible con todas las plataformas."
-    },
-    {
-        id: 23,
-        name: "3,400 PAVOS (Cuenta Nueva)",
-        price: 296.00,
-        category: "fortnite",
-        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
-        badge: "Recomendado",
-        description: "Cuenta nueva con 3,400 Pavos lista para enviar artículos vía regalo. Compatible con todas las plataformas."
+        description: "Recarga de 5,000 Pavos directamente en tu cuenta principal. Proceso 100% seguro."
     },
     {
         id: 10,
@@ -77,56 +75,297 @@ const products = [
         category: "lotes-fortnite",
         icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
         badge: "Económico",
-        description: "Lote de 3 cuentas individuales con 1,000 Pavos cada una. Ideal para uso personal o para empezar a revender. Compatibles con todas las plataformas."
+        description: "Lote de 3 cuentas full acceso. Incluyen Club de Fortnite (+1500 pavos extra por cuenta)."
     },
+    /* PERFILES (Lego) */
     {
-        id: 11,
-        name: "4,500 PAVOS (3 Cuentas de 1.5K)",
-        price: 204.00,
-        category: "lotes-fortnite",
-        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
-        badge: "Popular",
-        description: "Lote de 3 cuentas con 1,500 Pavos cada una. El balance perfecto entre precio y cantidad para revendedores."
-    },
-    {
-        id: 12,
-        name: "4,800 PAVOS (3 Cuentas de 1.6K)",
-        price: 245.00,
-        category: "lotes-fortnite",
-        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
-        badge: "Nuevo",
-        description: "Lote de 3 cuentas con 1,600 Pavos cada una. Precio por cuenta de apenas $81.6 MXN."
-    },
-    {
-        id: 13,
-        name: "5,000 PAVOS (5 Cuentas de 1K)",
-        price: 200.00,
-        category: "lotes-fortnite",
-        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
-        badge: "Mejor Precio",
-        description: "Lote masivo de 5 cuentas con 1,000 Pavos cada una. Increíble precio de $40 por cuenta."
-    },
-    {
-        id: 14,
-        name: "6,600 PAVOS (3 Cuentas de 2.2K)",
-        price: 335.00,
-        category: "lotes-fortnite",
-        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
+        id: 60,
+        name: "Max (Perfiles)",
+        price: 35.00,
+        category: "streaming",
+        type: "selectable",
+        icon: "fas fa-tv, fas fa-mobile-alt",
         badge: "Premium",
-        description: "Lote de 3 cuentas con 2,200 Pavos cada una. Para quienes buscan skins de mayor rareza."
+        description: "Perfiles garantizados de Max.",
+        variants: [
+            { name: "Max Estandar", price: 35.00 },
+            { name: "Max Platino", price: 45.00 }
+        ]
     },
     {
-        id: 15,
-        name: "10,200 PAVOS (3 Cuentas de 3.4K)",
-        price: 595.00,
-        category: "lotes-fortnite",
-        icon: "fab fa-xbox, fab fa-playstation, fas fa-desktop, fas fa-gamepad",
-        badge: "Mega Pack",
-        description: "Lote de 3 cuentas de 3,400 Pavos cada una. Máximo ahorro para grandes compras."
+        id: 61,
+        name: "Disney Premium (Perfil)",
+        price: 49.00,
+        category: "streaming",
+        icon: "fas fa-tv, fas fa-mobile-alt",
+        badge: "Vip",
+        description: "Disney Premium con acceso total."
+    },
+    {
+        id: 62,
+        name: "Vix Anual (Perfil)",
+        price: 45.00,
+        category: "streaming",
+        icon: "fas fa-film",
+        description: "Acceso anual a Vix mediante perfil personal."
+    },
+    {
+        id: 63,
+        name: "Paramount (Perfiles)",
+        price: 25.00,
+        category: "streaming",
+        type: "selectable",
+        icon: "fas fa-tv",
+        description: "Perfiles de Paramount+.",
+        variants: [
+            { name: "1 Mes", price: 25.00 },
+            { name: "2 Meses", price: 37.00 }
+        ]
+    },
+    {
+        id: 64,
+        name: "Crunchyroll Mega Fan (Perfil)",
+        price: 31.00,
+        category: "streaming",
+        type: "selectable",
+        icon: "fas fa-film",
+        description: "Perfiles de Crunchyroll Mega Fan.",
+        variants: [
+            { name: "1 Mes", price: 31.00 },
+            { name: "Anual", price: 75.00 }
+        ]
+    },
+    {
+        id: 65,
+        name: "Apple TV (Perfil)",
+        price: 40.00,
+        category: "streaming",
+        icon: "fas fa-apple-alt",
+        description: "Perfil personal para Apple TV."
+    },
+    {
+        id: 66,
+        name: "Super Duolingo (Invitación)",
+        price: 30.00,
+        category: "streaming",
+        icon: "fas fa-language",
+        description: "Suscripción Super Duolingo."
+    },
+    {
+        id: 73,
+        name: "YouTube Premium (Personal)",
+        price: 30.00,
+        category: "streaming",
+        type: "selectable",
+        icon: "fab fa-youtube",
+        description: "YouTube Premium directo a tu cuenta personal.",
+        variants: [
+            { name: "1 Mes Invitación", price: 30.00 },
+            { name: "1 Mes Familiar", price: 55.00 },
+            { name: "3 Meses", price: 85.00 },
+            { name: "1 Año", price: 280.00 }
+        ]
+    },
+    {
+        id: 74,
+        name: "Canva Pro",
+        price: 30.00,
+        category: "streaming",
+        type: "selectable",
+        icon: "fas fa-paint-brush",
+        badge: "Lego Edition",
+        description: "Herramientas Pro activadas para tu cuenta.\n\n- 1 Mes: $30\n- 2 Meses: $40\n- 1 Año: $90\n- 2 Años: $105\n- 3 Años: $135",
+        variants: [
+            { name: "1 Mes", price: 30.00 },
+            { name: "2 Meses", price: 40.00 },
+            { name: "1 Año", price: 90.00 },
+            { name: "2 Años", price: 105.00 },
+            { name: "3 Años", price: 135.00 }
+        ]
+    },
+    /* CUENTAS COMPLETAS (Lego) */
+    {
+        id: 80,
+        name: "Vix (Cuenta Completa)",
+        price: 25.00,
+        category: "streaming-completa",
+        type: "selectable",
+        icon: "fas fa-film",
+        badge: "Full Acceso",
+        description: "Cuentas completas de Vix con acceso total.",
+        variants: [
+            { name: "1 Mes", price: 25.00 },
+            { name: "2 Meses", price: 37.00 },
+            { name: "Anual", price: 65.00 }
+        ]
+    },
+    {
+        id: 81,
+        name: "Disney Premium (Completa)",
+        price: 105.00,
+        category: "streaming-completa",
+        icon: "fas fa-tv",
+        badge: "Premium",
+        description: "Cuenta completa de Disney+ Premium."
+    },
+    {
+        id: 82,
+        name: "Prime Video (Completa)",
+        price: 70.00,
+        category: "streaming-completa",
+        icon: "fas fa-video",
+        badge: "Disney+",
+        description: "Cuenta completa de Amazon Prime Video."
+    },
+    {
+        id: 83,
+        name: "Max (Cuenta Completa)",
+        price: 70.00,
+        category: "streaming-completa",
+        type: "selectable",
+        icon: "fas fa-tv",
+        description: "Cuentas completas de Max.",
+        variants: [
+            { name: "Max Estandar", price: 70.00 },
+            { name: "Max Platino", price: 80.00 }
+        ]
+    },
+    {
+        id: 84,
+        name: "Paramount+ (Completa)",
+        price: 37.00,
+        category: "streaming-completa",
+        type: "selectable",
+        icon: "fas fa-tv",
+        description: "Cuentas completas de Paramount+.",
+        variants: [
+            { name: "1 Mes", price: 37.00 },
+            { name: "2 Meses", price: 47.00 }
+        ]
+    },
+    {
+        id: 85,
+        name: "Crunchyroll Mega Fan (Completa)",
+        price: 55.00,
+        category: "streaming-completa",
+        icon: "fas fa-film",
+        description: "Cuenta completa de Crunchyroll (1 Mes Mega Fan)."
+    },
+    /* ECONÓMICO (Simi) */
+    {
+        id: 70,
+        name: "Netflix (Plan Aleatorio)",
+        price: 40.00,
+        category: "ofertas",
+        type: "selectable",
+        icon: "fas fa-percentage",
+        badge: "Simi Oferta",
+        description: "# PLAN DE SUSCRIPCIÓN ALEATORIA\n\n- Planes aleatorios económicos.",
+        variants: [
+            { name: "1 Mes", price: 40.00 },
+            { name: "3 Meses", price: 90.00 },
+            { name: "6 Meses", price: 150.00 }
+        ]
+    },
+    {
+        id: 71,
+        name: "Disney+ (Plan Aleatorio)",
+        price: 40.00,
+        category: "ofertas",
+        type: "selectable",
+        icon: "fas fa-percentage",
+        badge: "Simi Oferta",
+        description: "# PLAN DE SUSCRIPCIÓN ALEATORIA.",
+        variants: [
+            { name: "1 Mes", price: 40.00 },
+            { name: "6 Meses", price: 90.00 },
+            { name: "12 Meses", price: 200.00 }
+        ]
+    },
+    {
+        id: 76,
+        name: "Spotify (Plan Aleatorio)",
+        price: 60.00,
+        category: "ofertas",
+        type: "selectable",
+        icon: "fas fa-percentage",
+        badge: "Simi Oferta",
+        description: "Música sin anuncios y modo offline.",
+        variants: [
+            { name: "1 Mes", price: 60.00 },
+            { name: "3 Meses", price: 90.00 },
+            { name: "6 Meses", price: 160.00 }
+        ]
+    },
+    {
+        id: 72,
+        name: "HBO Max (Plan Aleatorio)",
+        price: 38.00,
+        category: "ofertas",
+        type: "selectable",
+        icon: "fas fa-percentage",
+        badge: "Simi Oferta",
+        description: "Planes aleatorios según disponibilidad.",
+        variants: [
+            { name: "1 Mes", price: 38.00 },
+            { name: "6 Meses", price: 85.00 },
+            { name: "12 Meses", price: 200.00 }
+        ]
+    },
+    {
+        id: 75,
+        name: "Crunchyroll (1 Mes Aleatorio)",
+        price: 35.00,
+        category: "ofertas",
+        icon: "fas fa-percentage",
+        badge: "Simi Oferta",
+        description: "Te puede tocar fan, mega fan, etc."
+    },
+    {
+        id: 90,
+        name: "Seguidores de Instagram",
+        price: 43.00,
+        priceWithGuarantee: 59.00,
+        category: "extras",
+        type: "calculator",
+        icon: "fab fa-instagram",
+        badge: "+1k Regalados",
+        description: "Aumenta tu presencia en Instagram con seguidores reales de alta calidad.\n\n📉 **Caída estimada**: 0-10%\n🛡️ **Garantía**: 1 mes completo\n\n🔥 **PROMOCIÓN**: En la compra de más de 2,000 seguidores, recibe 1,000 Likes totalmente DE REGALO para la foto que quieras.",
+        unitName: "Seguidores",
+        minAmount: 100,
+        step: 100
+    },
+    {
+        id: 91,
+        name: "Cualquier Juego Steam",
+        price: 195.00,
+        category: "extras",
+        icon: "fab fa-steam",
+        badge: "Económico",
+        description: "Obtén cualquier juego de Steam mediante este método exclusivo.\n\n✅ Un solo pago\n✅ Cuenta principal de Steam\n✅ Sin riesgo de baneo\n✅ No Bin / No CC\n✅ Funciona para jugar Online",
+        platform: "PC"
+    },
+    {
+        id: 92,
+        name: "Panel de TikTok (Vistas Gratis)",
+        price: 98.00,
+        category: "extras",
+        icon: "fab fa-tiktok",
+        badge: "Auto-Servicio",
+        description: "Obtén acceso a nuestro panel exclusivo de TikTok. Genera vistas, likes, seguidores, compartidos y guardados de forma gratuita.\n\n🚀 **USO ILIMITADO**: Puedes usarlo para tus propias cuentas o incluso abrir tu propio negocio de reventa de servicios sociales.",
+    },
+    {
+        id: 93,
+        name: "Google Drive 500TB (LifeTime)",
+        price: 295.00,
+        category: "extras",
+        icon: "fab fa-google-drive",
+        badge: "STAR PRODUCT",
+        description: "Almacenamiento masivo y permanente para todos tus archivos.\n\n✅ **500 TERABYTES**: Espacio masivo en cuenta emitida.\n✅ **PERMANENTE**: No vence, un solo pago de por vida.\n✅ **PRIVADO**: Tu información es 100% privada.\n✅ **VINCULABLE**: Se puede vincular con tu cuenta personal.\n\n✨ *Incluye cuenta personalizada con el prefijo que elijas (ej: tunombre@).* ",
+        platform: "Cloud"
     }
 ];
 
-// Export logic for main scripts
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = products;
 }

@@ -41,42 +41,56 @@
     <main class="page-content">
         <section class="page-header container">
             <h1 class="text-gradient">Métodos de Pago</h1>
-            <p>Aceptamos diversas formas de pago para tu mayor comodidad y seguridad.</p>
+            <p>Aceptamos transferencias bancarias nacionales y depósitos en efectivo en tiendas de conveniencia.</p>
         </section>
 
         <section class="container section-padding">
-            <div class="benefits-grid">
+            <div class="benefits-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                <!-- Transferencia -->
+                <div class="benefit-item animate-reveal">
+                    <div class="benefit-icon purple"><i class="fas fa-university"></i></div>
+                    <h3>Transferencia (CLABE/SPEI)</h3>
+                    <p>Transferencias inmediatas desde cualquier banco en México. Totalmente seguro y sin comisiones
+                        extras.</p>
+                </div>
                 <!-- OXXO -->
                 <div class="benefit-item animate-reveal">
                     <div class="benefit-icon blue"><i class="fas fa-store"></i></div>
-                    <h3>Efectivo (vía OXXO)</h3>
-                    <p>Realiza tu pago en cualquier sucursal OXXO de México de forma rápida y sencilla.</p>
-                </div>
-                <!-- Transferencia -->
-                <div class="benefit-item animate-reveal">
-                    <div class="benefit-icon purple"><i class="fas fa-random"></i></div>
-                    <h3>Transferencia Electrónica</h3>
-                    <p>Aceptamos transferencias bancarias nacionales e internacionales (SPEI, SEPA, SWIFT).</p>
-                </div>
-                <!-- Binance / Crypto -->
-                <div class="benefit-item animate-reveal">
-                    <div class="benefit-icon blue"><i class="fab fa-bitcoin"></i></div>
-                    <h3>Binance Pay / Crypto</h3>
-                    <p>Paga con USDT, BTC o cualquier criptomoneda sin comisiones vía Binance Pay.</p>
-                </div>
-                <!-- PayPal / Zelle -->
-                <div class="benefit-item animate-reveal">
-                    <div class="benefit-icon purple"><i class="fab fa-paypal"></i></div>
-                    <h3>PayPal / Zelle</h3>
-                    <p>Métodos internacionales seguros para mayor flexibilidad en tu compra.</p>
+                    <h3>Depósito en OXXO / Tiendas</h3>
+                    <p>Realiza tu depósito en efectivo en cualquier OXXO, 7-Eleven o ventanilla bancaria de la República
+                        Mexicana.</p>
                 </div>
             </div>
 
-            <div class="cta-card animate-reveal" style="margin-top: 4rem;">
-                <h3>¿Necesitas otro método?</h3>
-                <p>Contáctanos directamente para verificar si podemos procesar tu pago de otra forma.</p>
-                <a href="https://discord.gg/Aq3TjM4tJT" class="btn btn-primary btn-glow"
-                    style="margin-top: 1.5rem;"><i class="fab fa-discord"></i> Consultar vía Discord</a>
+            <div class="cta-card animate-reveal"
+                style="margin-top: 4rem; background: linear-gradient(135deg, rgba(88, 101, 242, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%); border-color: #5865F2;">
+                <h2 style="color: #5865F2; margin-bottom: 1.5rem;"><i class="fab fa-discord"></i> ¿Por qué comprar por
+                    Discord es mejor que WhatsApp?</h2>
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; text-align: left; margin-bottom: 2rem;">
+                    <div>
+                        <h4 style="color: white; margin-bottom: 0.5rem;"><i class="fas fa-ticket-alt"></i> Sistema de
+                            Tickets</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Atención organizada y privada. Tu pedido no se
+                            pierde entre chats personales.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: white; margin-bottom: 0.5rem;"><i class="fas fa-shield-alt"></i> Garantía
+                            Asegurada</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">El historial de tu ticket queda guardado para
+                            validar tu garantía en segundos.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: white; margin-bottom: 0.5rem;"><i class="fas fa-check-circle"></i> Reputación
+                            Real</h4>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Acceso directo al canal de <i>#referencias</i> con
+                            miles de pruebas de clientes reales.</p>
+                    </div>
+                </div>
+                <p>Aunque atendemos por WhatsApp, **Discord es nuestra plataforma recomendada** para una experiencia
+                    100% segura y profesional.</p>
+                <a href="https://discord.gg/Aq3TjM4tJT" class="btn btn-primary btn-glow" style="margin-top: 1.5rem;"><i
+                        class="fab fa-discord"></i> Ir a Discord (Recomendado)</a>
             </div>
         </section>
     </main>
@@ -93,8 +107,8 @@
         <i class="fab fa-discord"></i>
     </a>
 
-    <script src="products.js"></script><script src="main.js"></script>
+    <script src="products.js"></script>
+    <script src="main.js"></script>
 </body>
 
 </html>
-

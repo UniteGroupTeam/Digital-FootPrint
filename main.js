@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addToCart = (productId) => {
         const product = products.find(p => p.id === productId);
         if (product) {
-            const existingItem = cart.find(item => item.id === productId);
+            const existingItem = cart.find(item => item.id === productId && !item.calculated);
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
@@ -18,6 +18,28 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCartUI();
             openCart();
             showToast(`¡${product.name} añadido!`);
+        }
+    };
+
+    window.addToCartCalculated = (productId, amount, totalPrice, unitName = 'Robux', mode = '') => {
+        const product = products.find(p => p.id === productId);
+        if (product) {
+            const displayName = mode ? `${amount} ${unitName} (${mode})` : `${amount} ${unitName}`;
+            const newItem = {
+                ...product,
+                id: `${product.id}-${amount}-${Date.now()}`,
+                name: displayName,
+                price: totalPrice,
+                quantity: 1,
+                calculated: true,
+                originalId: productId,
+                amount: amount
+            };
+            cart.push(newItem);
+            saveCart();
+            updateCartUI();
+            openCart();
+            showToast(`¡${amount} ${unitName} añadidos!`);
         }
     };
 
@@ -290,21 +312,32 @@ document.addEventListener('DOMContentLoaded', () => {
             list.innerHTML = cart.map(item => `
                 <div class="cart-item">
                     <div style="font-size: 1.2rem; display: flex; gap: 0.3rem;">
-                        ${item.icon.split(',').slice(0, 2).map(icon => `<i class="${icon.trim()}"></i>`).join('')}
+                        ${item.icon ? item.icon.split(',').slice(0, 2).map(icon => `<i class="${icon.trim()}"></i>`).join('') : '<i class="fas fa-box"></i>'}
                     </div>
                     <div class="cart-item-info">
                         <h4>${item.name}</h4>
                         <p>$${item.price.toFixed(2)} MXN</p>
                         <div class="qty-controls">
-                            <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <button class="qty-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
                             <span>${item.quantity}</span>
-                            <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            <button class="qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
                         </div>
                     </div>
-                    <button onclick="removeFromCart(${item.id})" style="background:none; border:none; color:rgba(255,0,0,0.5); cursor:pointer;"><i class="fas fa-trash"></i></button>
+                    <button onclick="removeFromCart('${item.id}')" style="background:none; border:none; color:rgba(255,0,0,0.5); cursor:pointer;"><i class="fas fa-trash"></i></button>
                 </div>
-            `).join('');
+            `).join('') + `
+                <div style="text-align: center; margin-top: 1rem;">
+                    <button onclick="clearCart()" style="background:none; border:none; color:var(--text-muted); font-size: 0.7rem; cursor:pointer; text-decoration: underline;">Vaciar Carrito</button>
+                </div>
+            `;
         }
+    };
+
+    window.clearCart = () => {
+        cart = [];
+        saveCart();
+        updateCartUI();
+        showToast("Carrito vaciado");
     };
 
     const showCheckoutModal = () => {
@@ -326,10 +359,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const processWhatsappCheckout = () => {
-        const orderSummary = cart.map(item => `- ${item.name} (x${item.quantity})`).join('%0A');
-        const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2);
-        const message = `Hola Digital Footprint, me gustaría realizar el siguiente pedido:%0A%0A${orderSummary}%0A%0ATotal: $${total}%0A%0A¿Cuáles son los pasos a seguir?`;
-        window.open(`https://wa.me/yournumber?text=${message}`, '_blank');
+        const orderSummary = cart.map(item => `- ${item.name} (x${item.quantity})`).join('\n');
+        const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+        const whatsappMsg = encodeURIComponent(`Hola Digital Footprint, me gustaría realizar el pedido:\n${orderSummary}\nTotal: $${total.toFixed(2)} MXN`);
+        window.open(`https://wa.me/525574123521?text=${whatsappMsg}`, '_blank');
     };
 
     window.copyOrder = () => {
@@ -415,6 +448,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 let auraClass = 'aura-blue';
                 if (p.category === 'lotes-fortnite') auraClass = 'aura-orange';
                 if (p.category === 'fortnite-principal') auraClass = 'aura-green';
+                if (p.category === 'fortnite-club') auraClass = 'aura-purple';
+                if (p.category === 'streaming' || p.category === 'streaming-premium' || p.category === 'streaming-completa') auraClass = 'aura-streaming';
+                if (p.category === 'ofertas') auraClass = 'aura-cyan';
+                if (p.category.includes('robux')) auraClass = 'aura-gold';
+                if (p.category === 'extras') auraClass = 'aura-purple';
 
                 const platformIcons = p.icon.split(',').map(icon => `<i class="${icon.trim()}" style="font-size: 0.8rem; opacity: 0.6;"></i>`).join('');
 
@@ -429,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">${platformIcons}</div>
                         <p class="price">$${p.price.toFixed(2)} MXN ${p.oldPrice ? `<span class="old-price">$${p.oldPrice.toFixed(2)}</span>` : ''}</p>
                         <div style="display:flex; gap:0.5rem;">
-                            <a href="producto.html?id=${p.id}" class="btn btn-outline" style="padding:0.8rem;"><i class="fas fa-eye"></i></a>
+                            <a href="producto.html?id=${p.id}&from=${filter}" class="btn btn-outline" style="padding:0.8rem;"><i class="fas fa-eye"></i></a>
                             <button onclick="addToCart(${p.id})" class="btn btn-primary btn-full"><i class="fas fa-cart-plus"></i> Añadir</button>
                         </div>
                     </div>
@@ -449,7 +487,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: 'Todo Fortnite', filter: 'fortnite-group' },
                 { name: 'Lotes Revendedores', filter: 'lotes-fortnite' },
                 { name: 'Cuentas Regalo', filter: 'fortnite' },
-                { name: 'Cuenta Principal', filter: 'fortnite-principal' }
+                { name: 'Cuenta Principal', filter: 'fortnite-principal' },
+                { name: 'Club de Fortnite', filter: 'fortnite-club' }
+            ],
+            'roblox': [
+                { name: 'Todo Roblox', filter: 'roblox-group' },
+                { name: 'Carga por Grupo', filter: 'robux-group' },
+                { name: 'Vía Gamepass', filter: 'robux-gamepass' }
+            ],
+            'streaming': [
+                { name: 'Todo Streaming', filter: 'streaming-group' },
+                { name: 'Perfiles', filter: 'streaming' },
+                { name: 'Completas', filter: 'streaming-completa' },
+                { name: 'Económico', filter: 'ofertas' }
+            ],
+            'extras': [
+                { name: 'Todo Otros', filter: 'extras' },
+                { name: 'Redes Sociales', filter: 'redes-sociales' }
             ]
         };
 
@@ -484,22 +538,37 @@ document.addEventListener('DOMContentLoaded', () => {
             if (filter === 'all') {
                 renderCatalog('all');
             } else if (filter === 'fortnite-group') {
-                const group = products.filter(p => p.category === 'fortnite' || p.category === 'lotes-fortnite' || p.category === 'fortnite-principal');
-                renderCatalogWithData(group);
-            } else if (filter === 'consolas-group') {
-                const group = products.filter(p => ['xbox', 'playstation', 'nintendo'].includes(p.category));
-                renderCatalogWithData(group);
+                const group = products.filter(p => p.category === 'fortnite' || p.category === 'lotes-fortnite' || p.category === 'fortnite-principal' || p.category === 'fortnite-club');
+                renderCatalogWithData(group, filter);
+            } else if (filter === 'roblox-group') {
+                const group = products.filter(p => p.category === 'robux-group' || p.category === 'robux-gamepass');
+                renderCatalogWithData(group, filter);
+            } else if (filter === 'streaming-group') {
+                const group = products.filter(p => p.category === 'streaming' || p.category === 'streaming-completa' || p.category === 'ofertas');
+                renderCatalogWithData(group, filter);
+            } else if (filter === 'ofertas') {
+                renderCatalog('ofertas');
+            } else if (filter === 'consolas-group' || filter === 'consolas' || filter === 'xbox' || filter === 'playstation' || filter === 'nintendo') {
+                renderConsoleNotice();
+            } else if (filter === 'redes-sociales') {
+                const group = products.filter(p => p.id === 90 || p.id === 92);
+                renderCatalogWithData(group, filter);
             } else {
                 renderCatalog(filter);
             }
         };
 
         // Helper to render with manual data
-        const renderCatalogWithData = (data) => {
+        const renderCatalogWithData = (data, filter = 'all') => {
             catalogGrid.innerHTML = data.map(p => {
                 let auraClass = 'aura-blue';
                 if (p.category === 'lotes-fortnite') auraClass = 'aura-orange';
                 if (p.category === 'fortnite-principal') auraClass = 'aura-green';
+                if (p.category === 'fortnite-club') auraClass = 'aura-purple';
+                if (p.category === 'streaming' || p.category === 'streaming-premium' || p.category === 'streaming-completa') auraClass = 'aura-streaming';
+                if (p.category === 'ofertas') auraClass = 'aura-cyan';
+                if (p.category.includes('robux')) auraClass = 'aura-gold';
+                if (p.category === 'extras') auraClass = 'aura-purple';
                 const platformIcons = p.icon.split(',').map(icon => `<i class="${icon.trim()}" style="font-size: 0.8rem; opacity: 0.6;"></i>`).join('');
 
                 return `
@@ -513,7 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">${platformIcons}</div>
                         <p class="price">$${p.price.toFixed(2)} MXN ${p.oldPrice ? `<span class="old-price">$${p.oldPrice.toFixed(2)}</span>` : ''}</p>
                         <div style="display:flex; gap:0.5rem;">
-                            <a href="producto.html?id=${p.id}" class="btn btn-outline" style="padding:0.8rem;"><i class="fas fa-eye"></i></a>
+                            <a href="producto.html?id=${p.id}&from=${filter}" class="btn btn-outline" style="padding:0.8rem;"><i class="fas fa-eye"></i></a>
                             <button onclick="addToCart(${p.id})" class="btn btn-primary btn-full"><i class="fas fa-cart-plus"></i> Añadir</button>
                         </div>
                     </div>
@@ -522,12 +591,42 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(revealOnScroll, 100);
         };
 
+        const renderConsoleNotice = () => {
+            catalogGrid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem; background: rgba(255, 255, 255, 0.02); border: 1px dashed var(--liquid-border); border-radius: 30px;" class="animate-reveal">
+                    <div style="font-size: 4rem; color: var(--primary); margin-bottom: 1.5rem; opacity: 0.5;">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h2 class="white-glow" style="margin-bottom: 1rem;">Catálogo de Consolas en Camino</h2>
+                    <p style="max-width: 600px; margin: 0 auto 2rem; color: var(--text-muted); line-height: 1.6;">
+                        Contamos con juegos y suscripciones para <strong>Xbox, PC, PlayStation y Nintendo</strong>. 
+                        Aunque nuestro catálogo online de esta sección aún no está disponible, puedes preguntarnos por 
+                        cualquier título o servicio que busques, incluyendo:
+                    </p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem;">
+                        <span class="product-badge" style="position: static; padding: 0.5rem 1rem;">Xbox Game Pass</span>
+                        <span class="product-badge" style="position: static; padding: 0.5rem 1rem;">PS Plus / Pass</span>
+                        <span class="product-badge" style="position: static; padding: 0.5rem 1rem;">Nintendo Online</span>
+                        <span class="product-badge" style="position: static; padding: 0.5rem 1rem;">Juegos AAA</span>
+                    </div>
+                    <a href="https://wa.me/525574123521" target="_blank" class="btn btn-primary btn-glow">
+                        <i class="fab fa-whatsapp"></i> Preguntar por un Juego
+                    </a>
+                </div>
+            `;
+        };
+
         mainFilters.forEach(item => {
             item.addEventListener('click', () => {
                 const mainId = item.dataset.main;
                 setActiveMain(item);
                 renderSubFilters(mainId);
-                handleFiltering(mainId === 'consolas' ? 'consolas-group' : (mainId === 'fortnite' ? 'fortnite-group' : mainId));
+                let targetFilter = mainId;
+                if (mainId === 'fortnite') targetFilter = 'fortnite-group';
+                if (mainId === 'roblox') targetFilter = 'roblox-group';
+                if (mainId === 'consolas') targetFilter = 'consolas-group';
+                if (mainId === 'streaming') targetFilter = 'streaming-group';
+                handleFiltering(targetFilter);
             });
         });
 
@@ -541,6 +640,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     let auraClass = 'aura-blue';
                     if (p.category === 'lotes-fortnite') auraClass = 'aura-orange';
                     if (p.category === 'fortnite-principal') auraClass = 'aura-green';
+                    if (p.category === 'fortnite-club') auraClass = 'aura-purple';
+                    if (p.category === 'streaming' || p.category === 'streaming-premium' || p.category === 'streaming-completa') auraClass = 'aura-streaming';
+                    if (p.category === 'ofertas') auraClass = 'aura-cyan';
+                    if (p.category.includes('robux')) auraClass = 'aura-gold';
+                    if (p.category === 'extras') auraClass = 'aura-purple';
 
                     return `
                     <div class="product-card visible" style="opacity:1; transform:translateY(0);">
@@ -565,8 +669,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const urlFilter = urlParams.get('filter');
         if (urlFilter) {
             let targetMain = urlFilter;
-            if (urlFilter === 'lotes-fortnite') targetMain = 'fortnite';
+            if (urlFilter === 'lotes-fortnite' || urlFilter === 'fortnite-principal') targetMain = 'fortnite';
             if (['xbox', 'playstation', 'nintendo'].includes(urlFilter)) targetMain = 'consolas';
+            if (urlFilter === 'roblox' || urlFilter === 'robux-group' || urlFilter === 'robux-gamepass') targetMain = 'roblox';
+            if (urlFilter === 'streaming' || urlFilter === 'streaming-completa' || urlFilter === 'ofertas') targetMain = 'streaming';
 
             const filterTarget = Array.from(mainFilters).find(i => i.dataset.main === targetMain);
             if (filterTarget) {
